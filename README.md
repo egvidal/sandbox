@@ -3,7 +3,7 @@
 - @workspace analyze repo structure and each playbook functionality, understand the purpose of this solution and document it on new file "work/existing_solution.md"
 
 
-- based on ansible-best-practices.md and naming-conventions.md, analyze what changes should be made to the repo structure and each existing file. Document the analysis in "work/analysys.md"
+- based on "ansible-best-practices.md" and "naming-conventions.md", analyze what changes should be made to the repo structure and each existing file. Document the analysis in "work/analysys.md"
 
 
 - now build a detailed plan for implementing the required changes setting milestones, in order from easiest to hardest (or simplest to most challenging). Document on "work/milestones.md"
