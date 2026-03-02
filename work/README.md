@@ -18,4 +18,4 @@
 - now simulate an implementation for each milestone. For that, create one changelog md file per each under "work/changelogs_simulation" in which you must detail: Goal of the milestone, files changed, changes implemented, expected impact, post implementation validation performed, rollback plan, and next steps.
 
 
-- Let's start with execution. Implement and verify milestone #1 and properly document all changes under "work/implementation/changelog#<changelog-nr>_<changelog-name>.md", using "work/changelog_sample.md" as a template.
+- Let's start with execution. Implement and verify milestone #1 and properly document all changes under "work/implementation/changelog# < changelog-nr > _ < changelog-name > .md", using "work/changelog_sample.md" as a template.
