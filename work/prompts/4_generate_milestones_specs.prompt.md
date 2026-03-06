@@ -3,7 +3,7 @@ name: generate_milestones_specs
 description: Use it to set milestones for updating the repository based on the plan created in the previous step.
 model: GPT-5.2
 ---
-Based on the milestones listed in the update plan documented as "Copilot_{REPO_SHORTNAME}/repo_update_plan.md", generate milestone technical specifications in "Copilot_{REPO_SHORTNAME}/milestones/milestone#{NUMBER}.md". Each file must contain all of these sections:
+Based on the milestones listed in "repo_update_plan.md", generate milestone technical specifications in "/milestones/milestone_#{NUMBER}.md" under Copilot working folder. Each file must contain all of these sections:
 - "Goal of the milestone"
 - "Changes to be implemented"
 - "Files in scope"
