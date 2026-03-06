@@ -1,8 +1,0 @@
----
-name: simulate_execution
-description: Use it to simulate the execution of the update plan and identify any potential issues or challenges that may arise during the actual implementation.
-model: GPT-5.3-Codex (copilot)
----
-Based on the update plan documented in "work/Copilot_{REPO_SHORTNAME}/update_plan.md" and the milestones under "work/Copilot_{REPO_SHORTNAME}/milestones/", simulate the execution of the plan by going through each milestone and task, and identifying any potential issues or challenges that may arise during the actual implementation. Document the simulation results in new files named "work/Copilot_{REPO_SHORTNAME}/changelogs_simulation/changelog_#{NUMBER}.md", including Goal of the milestone, Files changed, Changes implemented, Expected impact, Post implementation validation, Rollback plan, and Next steps, along with any possible identified issues, potential solutions, and recommendations for improving the update plan.
-
-If collections and roles are being included in requirements.yml, make sure all src URLs are accurate and points to the most current links. Also, make sure the versions being pinned responds to the latest stable version. Do not include roles or collections (in requirements.yml) which are not used in the playbooks. Be accurate with roles names, do not make assumptions and validate the accuracy of each action before changing anything. After completing each milestone implementation, verify everything reflects the desired state.
