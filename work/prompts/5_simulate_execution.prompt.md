@@ -3,7 +3,7 @@ name: simulate_execution
 description: Use it to simulate the execution of the update plan and identify any potential issues or challenges that may arise during the actual implementation.
 model: GPT-5.3-Codex (copilot)
 ---
-Based on the update plan documented in "Copilot_{REPO_SHORTNAME}/repo_update_plan.md" and the milestones under "Copilot_{REPO_SHORTNAME}/milestones/", simulate the execution of the plan by going through each milestone and task. Be precise and thorough, following the documented steps closely. Identify any potential issues or challenges that may arise during the actual implementation. Document each simulation results in "Copilot_{REPO_SHORTNAME}/simulations/changelog_milestone#{NUMBER}.md", including:
+Based on the update plan documented in "repo_update_plan.md" and the milestones under "/milestones/", simulate the execution of the plan by going through each milestone and task. Be precise and thorough, following the documented steps closely. Identify any potential issues or challenges that may arise during the actual implementation. Document each simulation results in "/simulations/changelog_milestone_#{NUMBER}.md" under Copilot working folder, including:
 - "Goal of the milestone"
 - "Files changed" (full list)
 - "Changes implemented"
