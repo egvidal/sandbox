@@ -4,7 +4,8 @@ description: Use it to start implementing the first milestone from the implement
 model: GPT-5.3-Codex (copilot)
 ---
 Based on the update plan documented in "repo_update_plan.md" and the milestones under "/milestones/", start implementing the first milestone by following the tasks outlined in the milestone description. Document the implementation process in "/implementation/changelog_milestone_#{NUMBER}.md" under Copilot working folder, including:
-- Timestamp
+- Iteration number: {nn}[space][space] (standard body text, after the top-line header)
+- Date: {yyyy-mm-dd} (standard body text)
 - Goal of the milestone
 - Files changed
 - Changes implemented
