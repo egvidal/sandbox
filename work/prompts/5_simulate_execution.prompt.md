@@ -3,8 +3,8 @@ name: simulate_execution
 description: Use it to simulate the execution of the update plan and identify any potential issues or challenges that may arise during the actual implementation.
 model: GPT-5.3-Codex (copilot)
 ---
-Based on the update plan documented in "repo_update_plan.md" and the milestones under "/milestones/", simulate the execution of the plan by going through each milestone and task. Be precise and thorough, following the documented steps closely. Identify any potential issues or challenges that may arise during the actual implementation. Document each simulation results in "/simulations/changelog_milestone_#{NUMBER}.md" under Copilot working folder, including:
-- Iteration number: {nn}[space][space] (standard body text, after the top-line header)
+Based on the update plan documented in "repo_update_plan.md" and the milestones under "/milestones/", simulate the execution of the plan by going through each milestone and task. Be precise and thorough, following the documented steps closely. Identify any potential issues or challenges that may arise during the actual implementation. Document each simulation results in "changelog_milestone_#{NUMBER}.md" under workspace root/Copilot_temp/ folder, including:
+- Iteration number: {nn}[space][space] (standard body text, after the top-line header.)
 - Date: {yyyy-mm-dd} (standard body text)
 - Goal of the milestone
 - Files changed
@@ -21,3 +21,5 @@ Use code snippets to clearly illustrate sample files or changes in repository st
 For collections and roles being included in requirements.yml, make sure all SCM source URLs are complete, accurate and points to the most current GitHub links. Also, make sure the versions being pinned responds to the latest stable version. Make sure to include only roles and collections which are actually used in the playbooks. If an external role source cannot be found, look for the most updated archived version and update the requirements.yml accordingly. Be accurate with roles names, do not make assumptions and validate the accuracy of each action before changing anything. After completing each milestone implementation, verify everything reflects the desired state.
 
 If the structure of the repository is changed, show the before and after structure, and explain the rationale behind the changes.
+
+Iteration number must be entered by the user each time this prompt is executed. If only one digit is provided, add a leading 0.
