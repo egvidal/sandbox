@@ -24,7 +24,9 @@ For collections and roles being included in requirements.yml, make sure all SCM 
 
 If the structure of the repository is changed, show the before and after structure, and explain the rationale behind the changes.
 
-For any files, folders or variable being renamed, provide an old-to-new mapping and execute instructions in "/prompt/update_mapping_file.prompt.md".
+For any files, folders or variable being renamed, provide an old-to-new mapping and execute instructions in ["update_mapping_file"](update_mapping_file.prompt.md).
+
+If a decision based on the options detailed within the milestones or repo_update_plan (if any) is to be made during implementation, ask for user input.
 
 Update existing documentation if necessary, ensuring that it is clear, concise, and accurately reflects the changes made in the code and structure.
 
