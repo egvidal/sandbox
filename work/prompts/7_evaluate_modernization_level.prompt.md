@@ -4,7 +4,7 @@ description: Use it to evaluate the current modernization level of the repositor
 model: GPT-5.2
 tools: [execute, read, edit, search, web, agent, todo]
 ---
-Evaluate the current modernization level of the repository by reviewing the changes made in the previous milestones and identifying areas that have been updated as well as areas that still require attention. This evaluation should include an assessment of the overall structure, code quality, adherence to best practices, and any remaining technical debt. Also, full linting tests must be executed to ensure code quality. All applicable files within the repository must be analyzed for linting issues.
+Evaluate the current modernization level of the repository by reviewing the changes made in the previous milestones and identifying areas that have been updated as well as areas that still require attention. This evaluation should include an assessment of the overall structure, code quality, adherence to best practices, and any remaining technical debt. Also, full linting tests (following existing repo lint configuration) must be executed to ensure code quality. All applicable files within the repository must be analyzed for linting issues.
  
 Document the findings in a clear and concise manner, highlighting the progress made and the areas that still need improvement. Use this evaluation to prioritize future updates and ensure that the repository is progressing towards a more modern and maintainable state.
  
