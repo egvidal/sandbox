@@ -2,7 +2,7 @@
 name: evaluate_modernization_level
 description: Use it to evaluate the current modernization level of the repository.
 model: GPT-5.2
-tools: [execute, read, edit, search, web, agent, todo]
+tools: [execute, read, search, web, agent, todo]
 ---
 Evaluate the current modernization level of the repository by reviewing the update plan and the changes made in the implemented milestones. Identify areas that have been updated as well as areas that still require attention. This evaluation should include an assessment of the overall structure, code quality, adherence to best practices, and any remaining technical debt. Also, full linting tests (following existing repo lint configuration) must be executed to ensure code quality. All applicable files within the repository must be analyzed for linting issues.
 
