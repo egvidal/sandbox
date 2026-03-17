@@ -9,7 +9,7 @@ When renaming any files, folders, variables, or other elements in the repository
 - New location (e.g., new file path, new variable name, etc)
 - Milestone Number (the milestone in which the change was implemented)
 
-Document these mappings in "refactor-mapping.md" under "/docs/code_modernization/implementation/" folder within the repository.
+Document these mappings in "refactor_mapping.md" under "/docs/code_modernization/implementation/" folder within the repository.
 Ensure the file remains updated as an accurate source of truth for all refactorings performed across the repository. This will help maintain clarity and traceability of changes throughout the implementation process. Maintain the table sorted by:
 - old location
 - element name
