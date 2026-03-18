@@ -11,7 +11,7 @@ Based on the update plan documented in "repo_update_plan.md", the milestones und
 - Changes implemented
 - Expected impact
 - Validation performed.
-  Execute required linting commands (following existing repo lint configuration) and provide results as:
+  Execute required linting commands (lint only changed files -plus the validation entrypoint if it was modified- following existing repo lint configuration) and provide results as:
     - Linting command executed
     - Results (PASSED/FAILED)
 - Rollback Notes
