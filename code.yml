@@ -1,0 +1,4 @@
+roles:
+  - { role: lin_hc,
+      tags: [ healthcheck, suse, redhat ],
+      when: ansible_os_family in ['Suse', 'RedHat'] }
