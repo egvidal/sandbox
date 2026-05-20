@@ -1,0 +1,56 @@
+---
+- name: Create temporary token and set scm_branch NULL in Job Templates
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  collections:
+    - awx.awx
+
+  vars:
+    controller_host: "https://<CONTROLLER_FQDN>"
+    controller_username: "usuario_api"
+    controller_password: "password_api"
+    validate_certs: false
+
+    job_templates:
+      - "KYN_Linux_Patching_Cluster_PreCheck_dev_merge"
+      - "KYN_Linux_Patching_Cluster_Patch_dev_merge"
+
+  tasks:
+
+    - name: Create temporary OAuth token
+      awx.awx.token:
+        controller_host: "{{ controller_host }}"
+        controller_username: "{{ controller_username }}"
+        controller_password: "{{ controller_password }}"
+        validate_certs: "{{ validate_certs }}"
+        description: "temporary token for scm_branch cleanup"
+        scope: write
+        state: present
+      register: awx_token
+
+    - name: Sanity check – token created
+      ansible.builtin.assert:
+        that:
+          - awx_token.ansible_facts.controller_oauthtoken is defined
+        fail_msg: "No se pudo crear el token (auth falló)"
+
+    - name: Set scm_branch to NULL in Job Templates
+      awx.awx.job_template:
+        controller_host: "{{ controller_host }}"
+        controller_oauthtoken: "{{ awx_token.ansible_facts.controller_oauthtoken }}"
+        validate_certs: "{{ validate_certs }}"
+        name: "{{ item }}"
+        scm_branch: null        # 👈 NULL real, no ""
+        state: present
+      loop: "{{ job_templates }}"
+
+    # --- OPCIONAL pero recomendado ---
+    - name: Delete temporary OAuth token
+      awx.awx.token:
+        controller_host: "{{ controller_host }}"
+        controller_oauthtoken: "{{ awx_token.ansible_facts.controller_oauthtoken }}"
+        existing_token: "{{ awx_token.token }}"
+        validate_certs: "{{ validate_certs }}"
+        state: absent
