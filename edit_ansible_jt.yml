@@ -1,0 +1,31 @@
+---
+- name: Set scm_branch to NULL in Job Templates
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  collections:
+    - awx.awx
+
+  vars:
+    controller_host: "https://<CONTROLLER_FQDN>"
+    controller_username: "admin"
+    controller_password: "<PASSWORD>"
+    validate_certs: false
+
+    job_templates:
+      - KYN_Linux_Patching_Cluster_PreCheck_dev_merge
+      - KYN_Linux_Patching_Cluster_Patch_dev_merge
+      - KYN_Linux_Patching_Cluster_PostCheck_dev_merge
+
+  tasks:
+    - name: Set scm_branch to null in Job Templates
+      awx.awx.job_template:
+        controller_host: "{{ controller_host }}"
+        controller_username: "{{ controller_username }}"
+        controller_password: "{{ controller_password }}"
+        validate_certs: "{{ validate_certs }}"
+        name: "{{ item }}"
+        scm_branch: null          # 👈 ESTO es lo importante
+        state: present
+      loop: "{{ job_templates }}"
