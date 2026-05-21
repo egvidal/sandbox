@@ -1,56 +1,72 @@
 ---
-- name: Create temporary token and set scm_branch NULL in Job Templates
+- name: Force scm_branch to NULL on a Job Template (PATCH + verify)
   hosts: localhost
   connection: local
   gather_facts: false
 
-  collections:
-    - awx.awx
-
   vars:
-    controller_host: "https://<CONTROLLER_FQDN>"
-    controller_username: "usuario_api"
-    controller_password: "password_api"
+    controller_host: "https://scibmanatdrp.td.com"   # <-- IMPORTANTE el https://
+    controller_token: "{{ cot_cred }}"
     validate_certs: false
-
-    job_templates:
-      - "KYN_Linux_Patching_Cluster_PreCheck_dev_merge"
-      - "KYN_Linux_Patching_Cluster_Patch_dev_merge"
+    jt_name: "KYN_Linux_Patching_Cluster_PreCheck_dev_merge"
 
   tasks:
-
-    - name: Create temporary OAuth token
-      awx.awx.token:
-        controller_host: "{{ controller_host }}"
-        controller_username: "{{ controller_username }}"
-        controller_password: "{{ controller_password }}"
+    - name: Lookup Job Template by name (get ID)
+      ansible.builtin.uri:
+        url: "{{ controller_host }}/api/v2/job_templates/?name={{ jt_name | urlencode }}"
+        method: GET
+        headers:
+          Authorization: "Bearer {{ controller_token }}"
         validate_certs: "{{ validate_certs }}"
-        description: "temporary token for scm_branch cleanup"
-        scope: write
-        state: present
-      register: awx_token
+        return_content: true
+      register: jt_lookup
 
-    - name: Sanity check – token created
+    - name: Assert JT exists and get id
       ansible.builtin.assert:
         that:
-          - awx_token.ansible_facts.controller_oauthtoken is defined
-        fail_msg: "No se pudo crear el token (auth falló)"
+          - jt_lookup.json.count | int >= 1
+        fail_msg: "No encontré el Job Template '{{ jt_name }}' en {{ controller_host }}"
+      vars:
+        ansible_assert_label: "JT exists"
 
-    - name: Set scm_branch to NULL in Job Templates
-      awx.awx.job_template:
-        controller_host: "{{ controller_host }}"
-        controller_oauthtoken: "{{ awx_token.ansible_facts.controller_oauthtoken }}"
-        validate_certs: "{{ validate_certs }}"
-        name: "{{ item }}"
-        scm_branch: null        # 👈 NULL real, no ""
-        state: present
-      loop: "{{ job_templates }}"
+    - name: Set jt_id fact
+      ansible.builtin.set_fact:
+        jt_id: "{{ jt_lookup.json.results[0].id }}"
 
-    # --- OPCIONAL pero recomendado ---
-    - name: Delete temporary OAuth token
-      awx.awx.token:
-        controller_host: "{{ controller_host }}"
-        controller_oauthtoken: "{{ awx_token.ansible_facts.controller_oauthtoken }}"
-        existing_token: "{{ awx_token.token }}"
+    - name: PATCH scm_branch to null
+      ansible.builtin.uri:
+        url: "{{ controller_host }}/api/v2/job_templates/{{ jt_id }}/"
+        method: PATCH
+        headers:
+          Authorization: "Bearer {{ controller_token }}"
+          Content-Type: "application/json"
+        body_format: json
+        body:
+          scm_branch: null
         validate_certs: "{{ validate_certs }}"
-        state: absent
+        return_content: true
+        status_code: [200]
+      register: jt_patch
+
+    - name: GET JT after patch
+      ansible.builtin.uri:
+        url: "{{ controller_host }}/api/v2/job_templates/{{ jt_id }}/"
+        method: GET
+        headers:
+          Authorization: "Bearer {{ controller_token }}"
+        validate_certs: "{{ validate_certs }}"
+        return_content: true
+      register: jt_after
+
+    - name: Show before/after scm_branch
+      ansible.builtin.debug:
+        msg:
+          - "JT id={{ jt_id }}"
+          - "PATCH response scm_branch={{ jt_patch.json.scm_branch }}"
+          - "AFTER GET scm_branch={{ jt_after.json.scm_branch }}"
+
+    - name: Assert scm_branch is null now
+      ansible.builtin.assert:
+        that:
+          - jt_after.json.scm_branch is none
+        fail_msg: "No quedó en null. Valor actual: {{ jt_after.json.scm_branch }}"
